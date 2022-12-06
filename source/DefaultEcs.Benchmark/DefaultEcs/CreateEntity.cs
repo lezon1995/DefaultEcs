@@ -6,7 +6,7 @@ namespace DefaultEcs.Benchmark.DefaultEcs
 {
     [MemoryDiagnoser]
     [SimpleJob(RunStrategy.Monitoring, launchCount: 1, warmupCount: 1, targetCount: 10, invocationCount: 1000000)]
-    public sealed class CreateEntity : IDisposable
+    public class CreateEntity : IDisposable
     {
         private World _world;
 

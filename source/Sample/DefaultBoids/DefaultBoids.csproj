@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<OutputType>WinExe</OutputType>
+		<LangVersion>11</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

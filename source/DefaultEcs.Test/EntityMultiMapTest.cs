@@ -12,7 +12,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void World_Should_return_world()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -22,7 +22,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Contains_Should_return_weither_an_entity_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             Entity entity = world.CreateEntity();
 
@@ -51,7 +51,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void ContainsKey_Should_return_weither_a_key_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -67,7 +67,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void This_Should_return_entities()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -80,7 +80,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Keys_Should_return_keys()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().WithEither<int>().AsMultiMap<int>(null);
 
@@ -114,7 +114,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Count_Should_return_the_number_of_entities()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -130,7 +130,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void TryGetEntities_Should_return_weither_a_key_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -160,7 +160,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Should_behave_correctly_when_key_changed()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
 
@@ -187,7 +187,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Complete_Should_empty_When_reative()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().WhenAddedEither<int>().AsMultiMap<int>();
 
@@ -209,7 +209,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Dispose_Should_not_throw_When_world_already_disposed()
         {
-            World world = new(4);
+            World world = new World(4);
 
             using EntityMultiMap<int> set = world.GetEntities().AsMultiMap<int>();
 
@@ -221,7 +221,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void TrimExcess_Should_fit_storage_to_number_of_entities()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> map = world.GetEntities().AsMultiMap<int>();
             world.CreateEntity().Set(42);
@@ -236,7 +236,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityAdded_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> set = world.GetEntities().AsMultiMap<int>();
 
@@ -253,7 +253,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityRemoved_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMultiMap<int> set = world.GetEntities().AsMultiMap<int>();
 

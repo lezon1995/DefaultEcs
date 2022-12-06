@@ -13,7 +13,7 @@ namespace DefaultEcs
         /// <typeparam name="T">The type of message.</typeparam>
         public static void RegisterMessage<T>()
         {
-            using World world = new();
+            using World world = new World();
 
             world.Subscribe(default(MessageHandler<T>));
         }
@@ -40,12 +40,11 @@ namespace DefaultEcs
         /// Registers the unmanaged type <typeparamref name="T"/> so it can freely be used in <see cref="System.ComponentAttribute"/> and by <see cref="Command.EntityRecord.Set{T}(in T)"/>.
         /// </summary>
         /// <typeparam name="T">The type of component.</typeparam>
-        public static void RegisterUnmanagedComponent<T>()
-            where T : unmanaged
+        public static void RegisterUnmanagedComponent<T>() where T : unmanaged
         {
             RegisterComponent<T>();
 
-            using World world = new();
+            using World world = new World();
 
             Entity entity = world.CreateEntity();
 

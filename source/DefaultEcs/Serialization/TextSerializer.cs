@@ -95,8 +95,8 @@ namespace DefaultEcs.Serialization
 
         #region Fields
 
-        private static readonly ConcurrentDictionary<Type, IComponentOperation> _componentOperations = new();
-        private static readonly ConcurrentDictionary<Type, IComponentOperation> _ignoreComponentOperations = new();
+        private static readonly ConcurrentDictionary<Type, IComponentOperation> _componentOperations = new ConcurrentDictionary<Type, IComponentOperation>();
+        private static readonly ConcurrentDictionary<Type, IComponentOperation> _ignoreComponentOperations = new ConcurrentDictionary<Type, IComponentOperation>();
 
         private readonly Predicate<Type> _componentFilter;
         private readonly TextSerializationContext _context;
@@ -175,14 +175,14 @@ namespace DefaultEcs.Serialization
             }
 
             bool isNewWorld = world is null;
-            Dictionary<string, Entity> entities = new();
+            Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
 
             try
             {
-                using StreamReaderWrapper reader = new(stream, _context);
+                using StreamReaderWrapper reader = new StreamReaderWrapper(stream, _context);
 
                 Entity currentEntity = default;
-                Dictionary<string, IComponentOperation> componentOperations = new();
+                Dictionary<string, IComponentOperation> componentOperations = new Dictionary<string, IComponentOperation>();
 
                 while (!reader.EndOfStream)
                 {
@@ -350,7 +350,7 @@ namespace DefaultEcs.Serialization
         {
             stream.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, context);
 
             Converter<T>.Write(writer, value);
         }
@@ -376,7 +376,7 @@ namespace DefaultEcs.Serialization
         {
             stream.ThrowIfNull();
 
-            using StreamReaderWrapper reader = new(stream, context);
+            using StreamReaderWrapper reader = new StreamReaderWrapper(stream, context);
 
             return Converter<T>.Read(reader);
         }
@@ -406,9 +406,9 @@ namespace DefaultEcs.Serialization
             stream.ThrowIfNull();
             world.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, _context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, _context);
 
-            Dictionary<Type, string> types = new();
+            Dictionary<Type, string> types = new Dictionary<Type, string>();
 
             if (world.MaxCapacity != int.MaxValue)
             {
@@ -448,7 +448,7 @@ namespace DefaultEcs.Serialization
             stream.ThrowIfNull();
             entities.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, _context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, _context);
 
             new EntityWriter(writer, new Dictionary<Type, string>(), _componentFilter).Write(entities);
         }

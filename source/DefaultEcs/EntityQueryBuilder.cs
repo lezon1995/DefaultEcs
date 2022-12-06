@@ -188,7 +188,7 @@ namespace DefaultEcs
             public EitherBuilder WhenRemovedEither<T>() => Commit().WhenRemovedEither<T>();
 
             /// <inheritdoc cref="EntityQueryBuilder.Copy"/>
-            public EntityQueryBuilder Copy() => new(Commit());
+            public EntityQueryBuilder Copy() => new EntityQueryBuilder(Commit());
 
             /// <inheritdoc cref="EntityQueryBuilder.AsPredicate"/>
             public Predicate<Entity> AsPredicate() => Commit().AsPredicate();
@@ -530,7 +530,7 @@ namespace DefaultEcs
         /// Copies all the rules of the current <see cref="EntityQueryBuilder"/> to a new instance.
         /// </summary>
         /// <returns>A new <see cref="EntityQueryBuilder"/> with all the same rules as the current instance.</returns>
-        public EntityQueryBuilder Copy() => new(this);
+        public EntityQueryBuilder Copy() => new EntityQueryBuilder(this);
 
         /// <summary>
         /// Returns a <see cref="Predicate{T}"/> representing the specified rules.
@@ -554,7 +554,7 @@ namespace DefaultEcs
         /// Returns an <see cref="EntitySet"/> with the specified rules.
         /// </summary>
         /// <returns>The <see cref="EntitySet"/>.</returns>
-        public EntitySet AsSet() => new(GetSubscriptions(out List<Func<EntityContainerWatcher, World, IDisposable>> subscriptions), _world, GetFilter(), GetPredicate(), subscriptions);
+        public EntitySet AsSet() => new EntitySet(GetSubscriptions(out List<Func<EntityContainerWatcher, World, IDisposable>> subscriptions), _world, GetFilter(), GetPredicate(), subscriptions);
 
         /// <summary>
         /// Returns an <see cref="EntitySortedSet{T}"/> with the specified rules.
@@ -566,7 +566,7 @@ namespace DefaultEcs
         {
             With<TComponent>();
 
-            return new(GetSubscriptions(out List<Func<EntityContainerWatcher, World, IDisposable>> subscriptions), _world, GetFilter(), GetPredicate(), subscriptions, comparer);
+            return new EntitySortedSet<TComponent>(GetSubscriptions(out List<Func<EntityContainerWatcher, World, IDisposable>> subscriptions), _world, GetFilter(), GetPredicate(), subscriptions, comparer);
         }
 
         /// <summary>

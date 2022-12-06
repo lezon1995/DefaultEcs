@@ -54,7 +54,7 @@ namespace DefaultEcs
             _needClearing = needClearing;
             _worldId = world.WorldId;
             _worldMaxCapacity = world.MaxCapacity == int.MaxValue ? int.MaxValue : (world.MaxCapacity + 1);
-            EntityContainerWatcher container = new(this, filter, predicate);
+            EntityContainerWatcher container = new EntityContainerWatcher(this, filter, predicate);
             _subscriptions = subscriptions
                 .Select(s => s(container, world))
                 .Merge();
@@ -84,7 +84,7 @@ namespace DefaultEcs
         #region Methods
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal ReadOnlySpan<Entity> GetEntities(int start, int length) => new(_entities, start, length);
+        internal ReadOnlySpan<Entity> GetEntities(int start, int length) => new ReadOnlySpan<Entity>(_entities, start, length);
 
         /// <summary>
         /// Gets the <see cref="Entity"/> contained in the current <see cref="EntitySet"/>.

@@ -12,7 +12,7 @@
         /// <typeparam name="TInfo">The infos used to identify the resources.</typeparam>
         /// <param name="info">The info used to identify the resource.</param>
         /// <returns>The <see cref="ManagedResource{TInfo, TResource}"/> object.</returns>
-        public static ManagedResource<TInfo, TResource> Create<TInfo>(TInfo info) => new(info);
+        public static ManagedResource<TInfo, TResource> Create<TInfo>(TInfo info) => new ManagedResource<TInfo, TResource>(info);
 
         /// <summary>
         /// Create a <see cref="ManagedResource{TInfo, TResource}"/> object with multiple infos.
@@ -20,7 +20,7 @@
         /// <typeparam name="TInfo">The infos used to identify the resources.</typeparam>
         /// <param name="infos">The type used to identify a resource.</param>
         /// <returns>The <see cref="ManagedResource{TInfo, TResource}"/> object.</returns>
-        public static ManagedResource<TInfo[], TResource> Create<TInfo>(params TInfo[] infos) => new(infos);
+        public static ManagedResource<TInfo[], TResource> Create<TInfo>(params TInfo[] infos) => new ManagedResource<TInfo[], TResource>(infos);
     }
 
     /// <summary>

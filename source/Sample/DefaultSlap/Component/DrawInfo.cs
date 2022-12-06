@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace DefaultSlap.Component
 {

@@ -13,7 +13,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void World_Should_return_world()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().AsMap<int>();
 
@@ -23,7 +23,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Contains_Should_return_weither_an_entity_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             Entity entity = world.CreateEntity();
 
@@ -51,7 +51,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void ContainsKey_Should_return_weither_a_key_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().AsMap<int>();
 
@@ -79,7 +79,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void This_Should_return_entity()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().AsMap<int>();
 
@@ -92,7 +92,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Keys_Should_return_keys()
         {
-            using World world = new(3);
+            using World world = new World(3);
 
             using EntityMap<int> map = world.GetEntities().WithEither<int>().AsMap<int>(null);
 
@@ -121,7 +121,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void TryGetEntity_Should_return_weither_a_key_is_in_or_not()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().AsMap<int>(null);
 
@@ -151,7 +151,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Should_behave_correctly_when_key_changed()
         {
-            using World world = new();
+            using World world = new World();
 
             Entity entity = world.CreateEntity();
             entity.Set(42);
@@ -178,7 +178,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Complete_Should_empty_When_reative()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().WhenAddedEither<int>().AsMap<int>();
 
@@ -200,7 +200,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void TrimExcess_Should_fit_storage_to_number_of_entities()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> map = world.GetEntities().AsMap<int>();
             world.CreateEntity().Set(42);
@@ -215,7 +215,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityAdded_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> set = world.GetEntities().AsMap<int>();
 
@@ -232,7 +232,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityRemoved_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntityMap<int> set = world.GetEntities().AsMap<int>();
 

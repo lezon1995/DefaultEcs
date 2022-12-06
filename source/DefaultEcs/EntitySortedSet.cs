@@ -56,7 +56,7 @@ namespace DefaultEcs
             _needClearing = needClearing;
             _worldId = world.WorldId;
             _worldMaxCapacity = world.MaxCapacity == int.MaxValue ? int.MaxValue : (world.MaxCapacity + 1);
-            EntityContainerWatcher container = new(this, filter, predicate);
+            EntityContainerWatcher container = new EntityContainerWatcher(this, filter, predicate);
             _subscriptions = Enumerable
                 .Repeat(world.Subscribe<ComponentChangedMessage<TComponent>>(On), 1)
                 .Concat(subscriptions.Select(s => s(container, world)))
@@ -107,7 +107,7 @@ namespace DefaultEcs
         /// </summary>
         /// <returns>A <see cref="ReadOnlySpan{T}"/> of the <see cref="Entity"/> contained in the current <see cref="EntitySortedSet{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ReadOnlySpan<Entity> GetEntities() => new(_entities, 0, Count);
+        public ReadOnlySpan<Entity> GetEntities() => new ReadOnlySpan<Entity>(_entities, 0, Count);
 
         #endregion
 

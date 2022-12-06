@@ -99,7 +99,7 @@ namespace DefaultEcs
             /// Gets the <see cref="Entity"/> at the current position of the enumerator.
             /// </summary>
             /// <returns>The <see cref="Entity"/> in the <see cref="World" /> at the current position of the enumerator.</returns>
-            public Entity Current => new(_worldId, _index);
+            public Entity Current => new Entity(_worldId, _index);
 
             /// <inheritdoc cref="Current" />
             object IEnumerator.Current => Current;
@@ -220,8 +220,7 @@ namespace DefaultEcs
         /// <summary>
         /// Initializes a new instance of the <see cref="World"/> class.
         /// </summary>
-        public World()
-            : this(int.MaxValue)
+        public World() : this(int.MaxValue)
         { }
 
         #endregion
@@ -384,13 +383,13 @@ namespace DefaultEcs
         /// Gets an <see cref="EntityQueryBuilder"/> to create a subset of <see cref="Entity"/> of the current <see cref="World"/>.
         /// </summary>
         /// <returns>An <see cref="EntityQueryBuilder"/>.</returns>
-        public EntityQueryBuilder GetEntities() => new(this, true);
+        public EntityQueryBuilder GetEntities() => new EntityQueryBuilder(this, true);
 
         /// <summary>
         /// Gets an <see cref="EntityQueryBuilder"/> to create a subset of disabled <see cref="Entity"/> of the current <see cref="World"/>.
         /// </summary>
         /// <returns>An <see cref="EntityQueryBuilder"/>.</returns>
-        public EntityQueryBuilder GetDisabledEntities() => new(this, false);
+        public EntityQueryBuilder GetDisabledEntities() => new EntityQueryBuilder(this, false);
 
         /// <summary>
         /// Calls on <paramref name="reader"/> with all the maximum number of component of the current <see cref="World"/>.
@@ -715,7 +714,7 @@ namespace DefaultEcs
         /// Returns an enumerator that iterates through the <see cref="Entity"/> of the current <see cref="World"/> instance.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the <see cref="Entity"/>.</returns>
-        public Enumerator GetEnumerator() => new(this);
+        public Enumerator GetEnumerator() => new Enumerator(this);
 
         /// <inheritdoc cref="GetEnumerator" />
         IEnumerator<Entity> IEnumerable<Entity>.GetEnumerator() => GetEnumerator();

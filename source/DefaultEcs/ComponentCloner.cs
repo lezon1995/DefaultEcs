@@ -21,7 +21,7 @@ namespace DefaultEcs
             public void OnRead<T>(in T component, in Entity componentOwner) => _cloner.OnComponent(component, _cloner._from[ComponentManager<T>.Flag]);
         }
 
-        private static readonly ThreadLocal<ComponentCloner> _local = new(() => new ComponentCloner(), false);
+        private static readonly ThreadLocal<ComponentCloner> _local = new ThreadLocal<ComponentCloner>(() => new ComponentCloner(), false);
 
         internal static ComponentCloner Instance => _local.Value;
 

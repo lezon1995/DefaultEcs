@@ -98,7 +98,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void AEntitySetSystem_Should_throw_ArgumentNullException_When_factory_is_null()
         {
-            using World world = new();
+            using World world = new World();
 
             Check
                 .ThatCode(() => new System(world, default(Func<object, World, EntitySet>)))
@@ -113,9 +113,9 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void World_Should_return_parent_world()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
-            using System system = new(world);
+            using System system = new System(world);
 
             Check.That(system.World).IsEqualTo(world);
         }
@@ -123,7 +123,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_call_update()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -169,7 +169,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_call_update_When_using_DisabledAttribute()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -207,7 +207,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_not_call_update_When_disabled()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -238,8 +238,8 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_with_runner_Should_call_update()
         {
-            using DefaultParallelRunner runner = new(2);
-            using World world = new(4);
+            using DefaultParallelRunner runner = new DefaultParallelRunner(2);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -289,7 +289,7 @@ namespace DefaultEcs.Test.System
             runner.DegreeOfParallelism.Returns(4);
             runner.When(m => m.Run(Arg.Any<IParallelRunnable>())).Throw<Exception>();
 
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -336,7 +336,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Should_throw_When_invalid_component_filter_type()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Check.ThatCode(() => new InvalidSystem(world)).Throws<ArgumentException>();
         }
@@ -344,7 +344,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_call_update_When_using_buffer()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -373,7 +373,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_not_call_update_When_disabled_and_using_buffer()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();

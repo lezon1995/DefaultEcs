@@ -11,11 +11,11 @@ namespace DefaultSlap.System
     [With<TargetPosition>, With<PositionFloat>, With<Speed>]
     public sealed class AISystem : AEntitySetSystem<float>
     {
-        private readonly ThreadLocal<Random> _random = new(() => new Random());
+        private readonly ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
 
-        public AISystem(World world, IParallelRunner runner)
-            : base(world, runner)
-        { }
+        public AISystem(World world, IParallelRunner runner) : base(world, runner)
+        {
+        }
 
         protected override void Update(float state, in Entity entity)
         {

@@ -14,7 +14,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void World_Should_return_parent_world()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntitySortedSet<int> sortedSet = world.GetEntities().AsSortedSet<int>();
 
@@ -24,9 +24,9 @@ namespace DefaultEcs.Test
         [Fact]
         public void GetEntities_Should_return_previously_created_Entity()
         {
-            using World world = new();
+            using World world = new World();
 
-            List<Entity> entities = new()
+            List<Entity> entities = new List<Entity>
             {
                 world.CreateEntity(),
                 world.CreateEntity(),
@@ -47,7 +47,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Contains_Should_return_true_When_containing_entity()
         {
-            using World world = new();
+            using World world = new World();
 
             Entity entity = world.CreateEntity();
             entity.Set(0);
@@ -60,7 +60,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Contains_Should_return_false_When_not_containing_entity()
         {
-            using World world = new();
+            using World world = new World();
 
             world.CreateEntity().Set(0);
             world.CreateEntity().Set(0);
@@ -76,9 +76,9 @@ namespace DefaultEcs.Test
         [Fact]
         public void GetEntities_Should_not_return_disabled_Entity()
         {
-            using World world = new();
+            using World world = new World();
 
-            List<Entity> entities = new()
+            List<Entity> entities = new List<Entity>
             {
                 world.CreateEntity(),
                 world.CreateEntity(),
@@ -107,9 +107,9 @@ namespace DefaultEcs.Test
         [Fact]
         public void GetEntities_Should_return_only_disabled_Entity()
         {
-            using World world = new();
+            using World world = new World();
 
-            List<Entity> entities = new()
+            List<Entity> entities = new List<Entity>
             {
                 world.CreateEntity(),
                 world.CreateEntity(),
@@ -141,9 +141,9 @@ namespace DefaultEcs.Test
         [Fact]
         public void GetEntities_Should_not_return_Entity_with_disabled_component()
         {
-            using World world = new();
+            using World world = new World();
 
-            List<Entity> entities = new()
+            List<Entity> entities = new List<Entity>
             {
                 world.CreateEntity(),
                 world.CreateEntity(),
@@ -166,9 +166,9 @@ namespace DefaultEcs.Test
         [Fact]
         public void GetEntities_Should_return_Entity_Sorted()
         {
-            using World world = new();
+            using World world = new World();
 
-            List<Entity> entities = new()
+            List<Entity> entities = new List<Entity>
             {
                 world.CreateEntity(),
                 world.CreateEntity(),
@@ -196,7 +196,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Complete_Should_empty_When_reative()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntitySortedSet<int> sortedSet = world.GetEntities().WhenAdded<int>().AsSortedSet<int>();
 
@@ -214,7 +214,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Dispose_Should_not_throw_When_world_already_disposed()
         {
-            World world = new();
+            World world = new World();
 
             using EntitySortedSet<int> sortedSet = world.GetEntities().AsSortedSet<int>();
 
@@ -226,7 +226,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void TrimExcess_Should_fit_storage_to_number_of_entities()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntitySortedSet<int> sortedSet = world.GetEntities().AsSortedSet<int>();
             world.CreateEntity().Set(0);
@@ -243,7 +243,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityAdded_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntitySortedSet<int> set = world.GetEntities().AsSortedSet<int>();
 
@@ -260,7 +260,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void EntityRemoved_Should_be_called()
         {
-            using World world = new();
+            using World world = new World();
 
             using EntitySortedSet<int> set = world.GetEntities().AsSortedSet<int>();
 
@@ -278,7 +278,7 @@ namespace DefaultEcs.Test
         [Fact]
         public void Remove_While_Full_Should_Not_Crash()
         {
-            using World world = new();
+            using World world = new World();
 
             for (int i = 0; i < 8; i++) // choose count such that _entities is completly used
             {

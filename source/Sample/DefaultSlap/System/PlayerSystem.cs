@@ -15,8 +15,7 @@ namespace DefaultSlap.System
         private MouseState _mouseState;
         private bool _isSlaping;
 
-        public PlayerSystem(World world, GameWindow window)
-            : base(world)
+        public PlayerSystem(World world, GameWindow window) : base(world)
         {
             _window = window;
         }

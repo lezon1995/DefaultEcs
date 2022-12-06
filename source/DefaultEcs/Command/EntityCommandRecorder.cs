@@ -180,7 +180,7 @@ namespace DefaultEcs.Command
         /// <param name="world">The <see cref="World"/> to record action for.</param>
         /// <returns>The <see cref="WorldRecord"/> used to record actions on the given <see cref="World"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="world"/> is null.</exception>
-        public WorldRecord Record(World world) => new(this, world.ThrowIfNull());
+        public WorldRecord Record(World world) => new WorldRecord(this, world.ThrowIfNull());
 
         /// <summary>
         /// Gives an <see cref="EntityRecord"/> to record action on the given <see cref="Entity"/>.
@@ -189,7 +189,7 @@ namespace DefaultEcs.Command
         /// <param name="entity">The <see cref="Entity"/> to record action for.</param>
         /// <returns>The <see cref="EntityRecord"/> used to record actions on the given <see cref="Entity"/>.</returns>
         /// <exception cref="InvalidOperationException">Command buffer is full.</exception>
-        public EntityRecord Record(in Entity entity) => new(this, WriteCommand(new EntityCommand(CommandType.Entity, entity)) + sizeof(CommandType));
+        public EntityRecord Record(in Entity entity) => new EntityRecord(this, WriteCommand(new EntityCommand(CommandType.Entity, entity)) + sizeof(CommandType));
 
         /// <summary>
         /// Executes all recorded commands and clears those commands.

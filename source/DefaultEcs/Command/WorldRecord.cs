@@ -33,7 +33,7 @@ namespace DefaultEcs.Command
         /// </summary>
         /// <returns>The <see cref="EntityRecord"/> used to record actions on the later created <see cref="Entity"/>.</returns>
         /// <exception cref="InvalidOperationException">Command buffer is full.</exception>
-        public EntityRecord CreateEntity() => new(_recorder, _recorder.WriteCommand(new EntityCommand(CommandType.CreateEntity, new Entity(_worldId))) + sizeof(CommandType));
+        public EntityRecord CreateEntity() => new EntityRecord(_recorder, _recorder.WriteCommand(new EntityCommand(CommandType.CreateEntity, new Entity(_worldId))) + sizeof(CommandType));
 
         /// <summary>
         /// Sets the value of the component of type <typeparamref name="T"/> on the corresponding <see cref="World"/>.

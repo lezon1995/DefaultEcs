@@ -52,7 +52,7 @@ namespace DefaultEcs.Resource
             /// Returns an enumerator that iterates through the collection.
             /// </summary>
             /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-            public ResourceEnumerator GetEnumerator() => new(_manager);
+            public ResourceEnumerator GetEnumerator() => new ResourceEnumerator(_manager);
 
             /// <inheritdoc cref="GetEnumerator" />
             IEnumerator<KeyValuePair<TInfo, TResource>> IEnumerable<KeyValuePair<TInfo, TResource>>.GetEnumerator() => GetEnumerator();
@@ -144,7 +144,7 @@ namespace DefaultEcs.Resource
         /// <summary>
         /// Gets all the <typeparamref name="TResource"/> loaded by the current instance and their corresponding <typeparamref name="TInfo"/>.
         /// </summary>
-        public ResourceEnumerable Resources => new(this);
+        public ResourceEnumerable Resources => new ResourceEnumerable(this);
 
         #endregion
 

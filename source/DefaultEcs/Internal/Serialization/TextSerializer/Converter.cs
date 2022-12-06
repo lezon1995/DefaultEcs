@@ -47,8 +47,8 @@ namespace DefaultEcs.Internal.Serialization.TextSerializer
 
         #region Fields
 
-        private static readonly ConcurrentDictionary<Type, WriteAction<object>> _writeActions = new();
-        private static readonly ConcurrentDictionary<Type, IReadActionWrapper> _readActions = new();
+        private static readonly ConcurrentDictionary<Type, WriteAction<object>> _writeActions = new ConcurrentDictionary<Type, WriteAction<object>>();
+        private static readonly ConcurrentDictionary<Type, IReadActionWrapper> _readActions = new ConcurrentDictionary<Type, IReadActionWrapper>();
 
         #endregion
 

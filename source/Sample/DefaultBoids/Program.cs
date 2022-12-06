@@ -4,7 +4,7 @@
     {
         private static void Main()
         {
-            using DefaultGame game = new();
+            using DefaultGame game = new DefaultGame();
 
             game.Run();
         }

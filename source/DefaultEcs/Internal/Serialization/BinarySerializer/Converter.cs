@@ -46,8 +46,8 @@ namespace DefaultEcs.Internal.Serialization.BinarySerializer
 
         #region Fields
 
-        private static readonly ConcurrentDictionary<string, WriteAction<object>> _writeActions = new();
-        private static readonly ConcurrentDictionary<string, IReadActionWrapper> _readActions = new();
+        private static readonly ConcurrentDictionary<string, WriteAction<object>> _writeActions = new ConcurrentDictionary<string, WriteAction<object>>();
+        private static readonly ConcurrentDictionary<string, IReadActionWrapper> _readActions = new ConcurrentDictionary<string, IReadActionWrapper>();
 
         #endregion
 

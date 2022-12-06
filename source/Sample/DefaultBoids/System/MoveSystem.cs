@@ -8,7 +8,7 @@ namespace DefaultBoids.System
 {
     internal sealed partial class MoveSystem : AEntitySetSystem<float>
     {
-        private readonly SafeBuffer<Entity> _buffer = new(DefaultGame.BoidsCount);
+        private readonly SafeBuffer<Entity> _buffer = new SafeBuffer<Entity>(DefaultGame.BoidsCount);
 
         [Update]
         private void Update(in Entity entity, float elaspedTime, ref Velocity velocity, ref DrawInfo drawInfo, ref GridId gridId, in Acceleration acceleration)

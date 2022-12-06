@@ -34,7 +34,7 @@ namespace DefaultEcs
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public ReadOnlySpan<Entity> GetEntities(int start, int length) => new(_entities, start, length);
+            public ReadOnlySpan<Entity> GetEntities(int start, int length) => new ReadOnlySpan<Entity>(_entities, start, length);
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public ReadOnlySpan<Entity> GetEntities() => GetEntities(0, Count);
@@ -131,7 +131,7 @@ namespace DefaultEcs
             /// Returns an enumerator that iterates through the collection.
             /// </summary>
             /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-            public KeyEnumerator GetEnumerator() => new(_map);
+            public KeyEnumerator GetEnumerator() => new KeyEnumerator(_map);
 
             /// <inheritdoc cref="GetEnumerator" />
             IEnumerator<TKey> IEnumerable<TKey>.GetEnumerator() => GetEnumerator();
@@ -222,7 +222,7 @@ namespace DefaultEcs
         /// <summary>
         /// Gets the keys contained in the <see cref="EntityMultiMap{TKey}"/>.
         /// </summary>
-        public KeyEnumerable Keys => new(this);
+        public KeyEnumerable Keys => new KeyEnumerable(this);
 
         /// <summary>
         /// Gets the <see cref="Entity"/> instances associated with the specified key.
@@ -247,7 +247,7 @@ namespace DefaultEcs
             _needClearing = needClearing;
             _worldId = world.WorldId;
             _worldMaxCapacity = world.MaxCapacity == int.MaxValue ? int.MaxValue : (world.MaxCapacity + 1);
-            EntityContainerWatcher container = new(this, filter, predicate);
+            EntityContainerWatcher container = new EntityContainerWatcher(this, filter, predicate);
             _subscriptions = Enumerable
                 .Repeat(world.Subscribe<ComponentChangedMessage<TKey>>(On), 1)
                 .Concat(subscriptions.Select(s => s(container, world)))

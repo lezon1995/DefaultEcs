@@ -24,7 +24,7 @@ namespace DefaultEcs
 
         private static IDisposable Subscribe(IPublisher publisher, Type type, object target)
         {
-            List<IDisposable> subscriptions = new();
+            List<IDisposable> subscriptions = new List<IDisposable>();
 
             try
             {

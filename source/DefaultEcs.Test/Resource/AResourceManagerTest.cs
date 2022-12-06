@@ -39,12 +39,12 @@ namespace DefaultEcs.Test.Resource
         [Fact]
         public void Should_load_resource()
         {
-            using World world = new(1);
+            using World world = new World(1);
 
             Entity entity = world.CreateEntity();
             entity.Set(ManagedResource<IDisposable>.Create("dummy"));
 
-            using ResourceManagerTest manager = new(null);
+            using ResourceManagerTest manager = new ResourceManagerTest(null);
 
             manager.Manage(world);
 
@@ -68,8 +68,8 @@ namespace DefaultEcs.Test.Resource
         {
             IDisposable value = Substitute.For<IDisposable>();
 
-            using World world = new(1);
-            using ResourceManagerTest manager = new(value);
+            using World world = new World(1);
+            using ResourceManagerTest manager = new ResourceManagerTest(value);
 
             Entity entity = world.CreateEntity();
             entity.Set(ManagedResource<IDisposable>.Create("dummy1", "dummy2"));
@@ -100,8 +100,8 @@ namespace DefaultEcs.Test.Resource
         {
             IDisposable value = Substitute.For<IDisposable>();
 
-            using World world = new(1);
-            using ResourceManagerTest manager = new(value);
+            using World world = new World(1);
+            using ResourceManagerTest manager = new ResourceManagerTest(value);
 
             manager.Manage(world);
             Entity entity = world.CreateEntity();
@@ -115,8 +115,8 @@ namespace DefaultEcs.Test.Resource
         {
             IDisposable value = Substitute.For<IDisposable>();
 
-            using World world = new(1);
-            using ResourceManagerTest manager = new(value);
+            using World world = new World(1);
+            using ResourceManagerTest manager = new ResourceManagerTest(value);
 
             Entity entity = world.CreateEntity();
             entity.Set(ManagedResource<IDisposable>.Create("dummy", "dummy2"));
@@ -133,8 +133,8 @@ namespace DefaultEcs.Test.Resource
             IDisposable value = Substitute.For<IDisposable>();
             value.When(d => d.Dispose()).Do(_ => ++disposedCount);
 
-            using ResourceManagerTest manager = new(value);
-            using World world = new();
+            using ResourceManagerTest manager = new ResourceManagerTest(value);
+            using World world = new World();
 
             manager.Manage(world);
             Entity entity = world.CreateEntity();
@@ -159,9 +159,9 @@ namespace DefaultEcs.Test.Resource
             IDisposable value = Substitute.For<IDisposable>();
             value.When(d => d.Dispose()).Do(_ => ++disposedCount);
 
-            using ResourceManagerTest manager = new(value);
+            using ResourceManagerTest manager = new ResourceManagerTest(value);
 
-            using (World world = new())
+            using (World world = new World())
             {
                 manager.Manage(world);
                 Entity entity = world.CreateEntity();

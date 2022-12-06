@@ -48,7 +48,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void AEntitySetSystem_Should_throw_ArgumentNullException_When_factory_is_null()
         {
-            using World world = new();
+            using World world = new World();
 
             Check
                 .ThatCode(() => new System(world, default))
@@ -63,9 +63,9 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void World_Should_return_parent_world()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
-            using System system = new(world);
+            using System system = new System(world);
 
             Check.That(system.World).IsEqualTo(world);
         }
@@ -73,7 +73,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_call_update()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -105,7 +105,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_call_update_When_using_buffer()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();
@@ -138,7 +138,7 @@ namespace DefaultEcs.Test.System
         [Fact]
         public void Update_Should_not_call_update_When_disabled_and_using_buffer()
         {
-            using World world = new(4);
+            using World world = new World(4);
 
             Entity entity1 = world.CreateEntity();
             entity1.Set<bool>();

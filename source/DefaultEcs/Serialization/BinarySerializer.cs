@@ -93,8 +93,8 @@ namespace DefaultEcs.Serialization
 
         #region Fields
 
-        private static readonly ConcurrentDictionary<Type, IComponentOperation> _componentOperations = new();
-        private static readonly ConcurrentDictionary<Type, IComponentOperation> _ignoreComponentOperations = new();
+        private static readonly ConcurrentDictionary<Type, IComponentOperation> _componentOperations = new ConcurrentDictionary<Type, IComponentOperation>();
+        private static readonly ConcurrentDictionary<Type, IComponentOperation> _ignoreComponentOperations = new ConcurrentDictionary<Type, IComponentOperation>();
 
         private readonly Predicate<Type> _componentFilter;
         private readonly BinarySerializationContext _context;
@@ -144,16 +144,16 @@ namespace DefaultEcs.Serialization
         private ICollection<Entity> Deserialize(Stream stream, ref World world)
         {
             bool isNewWorld = world is null;
-            List<Entity> entities = new(128);
+            List<Entity> entities = new List<Entity>(128);
 
             try
             {
-                using StreamReaderWrapper reader = new(stream, _context);
+                using StreamReaderWrapper reader = new StreamReaderWrapper(stream, _context);
 
                 world ??= new World(reader.Read<int>());
 
                 Entity currentEntity = default;
-                Dictionary<ushort, IComponentOperation> componentOperations = new();
+                Dictionary<ushort, IComponentOperation> componentOperations = new Dictionary<ushort, IComponentOperation>();
 
                 int entryType;
                 while ((entryType = stream.ReadByte()) >= 0)
@@ -253,7 +253,7 @@ namespace DefaultEcs.Serialization
         {
             stream.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, context);
 
             Converter<T>.Write(writer, value);
         }
@@ -279,7 +279,7 @@ namespace DefaultEcs.Serialization
         {
             stream.ThrowIfNull();
 
-            using StreamReaderWrapper reader = new(stream, context);
+            using StreamReaderWrapper reader = new StreamReaderWrapper(stream, context);
 
             return Converter<T>.Read(reader);
         }
@@ -309,11 +309,11 @@ namespace DefaultEcs.Serialization
             stream.ThrowIfNull();
             world.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, _context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, _context);
 
             writer.Write(world.MaxCapacity);
 
-            Dictionary<Type, ushort> types = new();
+            Dictionary<Type, ushort> types = new Dictionary<Type, ushort>();
 
             world.ReadAllComponentTypes(new ComponentTypeWriter(world, writer, types, world.MaxCapacity, _componentFilter));
 
@@ -346,7 +346,7 @@ namespace DefaultEcs.Serialization
             stream.ThrowIfNull();
             entities.ThrowIfNull();
 
-            using StreamWriterWrapper writer = new(stream, _context);
+            using StreamWriterWrapper writer = new StreamWriterWrapper(stream, _context);
 
             new EntityWriter(writer, new Dictionary<Type, ushort>(), _componentFilter).Write(entities);
         }
